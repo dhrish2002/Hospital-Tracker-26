@@ -283,7 +283,6 @@ select option { background: var(–surface2); }
 
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-  import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
   import { getFirestore, doc, setDoc, getDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
   const firebaseConfig = {
@@ -297,73 +296,35 @@ select option { background: var(–surface2); }
   };
 
   const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
   const db = getFirestore(app);
+  const docRef = doc(db, "shared", "warddata");
 
-  let currentUser = null;
-
-  // LOGIN SCREEN
-  document.body.innerHTML = `
-    <div style="display:flex;justify-content:center;align-items:center;height:100vh;background:#0e1117;color:white;font-family:monospace;">
-      <div>
-        <h2>WardTracker Login</h2>
-        <input id="email" placeholder="Email" style="display:block;margin:10px 0;padding:8px;width:250px;">
-        <input id="password" type="password" placeholder="Password" style="display:block;margin:10px 0;padding:8px;width:250px;">
-        <button onclick="login()" style="padding:8px 15px;">Login</button>
-        <button onclick="register()" style="padding:8px 15px;">Register</button>
-      </div>
-    </div>
-  `;
-
-  window.login = async () => {
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-    await signInWithEmailAndPassword(auth, email, password);
-  };
-
-  window.register = async () => {
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-    await createUserWithEmailAndPassword(auth, email, password);
-  };
-
-  onAuthStateChanged(auth, async (user) => {
-    if (user) {
-      currentUser = user;
-      loadData();
-    }
-  });
+  let isSyncing = false;
 
   async function loadData() {
-    const docRef = doc(db, "users", currentUser.uid);
     const snap = await getDoc(docRef);
-
     if (snap.exists()) {
       wards = snap.data().wards;
     } else {
       await setDoc(docRef, { wards });
     }
-
     renderWards();
 
     onSnapshot(docRef, (snapshot) => {
-      wards = snapshot.data().wards;
-      renderWards();
+      if (snapshot.exists() && !isSyncing) {
+        wards = snapshot.data().wards;
+        renderWards();
+      }
     });
   }
 
-  async function saveData() {
-    const docRef = doc(db, "users", currentUser.uid);
+  window.saveToFirebase = async function() {
+    isSyncing = true;
     await setDoc(docRef, { wards });
-  }
-
-  // Override existing render trigger points
-  const originalRender = renderWards;
-  renderWards = function() {
-    originalRender();
-    if (currentUser) saveData();
+    isSyncing = false;
   };
 
+  loadData();
 </script>
 
 <script>
@@ -766,7 +727,12 @@ document.getElementById(‘current-time’).textContent=now.toLocaleTimeString(�
 }
 tick(); setInterval(tick,1000);
 
-renderWards();
+// Wrap renderWards to auto-save to Firebase on every change
+const _origRender = renderWards;
+renderWards = function() {
+_origRender();
+if (typeof saveToFirebase === ‘function’) saveToFirebase();
+};
 </script>
 
 </body>
