@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -72,87 +73,88 @@
   .add-patient-btn { width: 100%; margin-top: 2px; padding: 7px; background: none; border: 1px dashed var(--border); border-radius: 8px; color: var(--muted); font-family: 'DM Mono', monospace; font-size: 0.7rem; cursor: pointer; transition: all 0.15s; }
   .add-patient-btn:hover { border-color: var(--accent); color: var(--accent); background: rgba(79,255,176,0.04); }
 
-  /* MODALS */
-  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.72); backdrop-filter: blur(4px); z-index: 200; align-items: center; justify-content: center; padding: 20px; }
-  .modal-overlay.active { display: flex; animation: fadeIn 0.15s ease; }
-  @keyframes fadeIn { from{opacity:0}to{opacity:1} }
-  @keyframes slideUp { from{transform:translateY(14px);opacity:0}to{transform:translateY(0);opacity:1} }
-  .modal { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; width: 100%; max-width: 700px; max-height: 92vh; overflow-y: auto; animation: slideUp 0.2s ease; }
-  .modal.sm { max-width: 460px; }
-  .modal-top { padding: 18px 22px 14px; border-bottom: 1px solid var(--border); display: flex; align-items: flex-start; justify-content: space-between; position: sticky; top: 0; background: var(--surface); z-index: 10; border-radius: 16px 16px 0 0; }
-  .modal-title-row { display: flex; align-items: flex-start; gap: 10px; flex: 1; min-width: 0; }
-  .modal-patient-name { font-family: 'Fraunces', serif; font-size: 1.35rem; font-weight: 600; letter-spacing: -0.5px; line-height: 1.1; }
-  .modal-sub { font-size: 0.67rem; color: var(--muted); margin-top: 4px; }
-  .private-badge { font-size: 0.63rem; padding: 3px 9px; border-radius: 12px; margin-top: 4px; white-space: nowrap; flex-shrink: 0; background: rgba(192,132,252,0.14); color: var(--private-color); border: 1px solid rgba(192,132,252,0.28); }
-  .public-badge { font-size: 0.63rem; padding: 3px 9px; border-radius: 12px; margin-top: 4px; white-space: nowrap; flex-shrink: 0; background: rgba(79,255,176,0.1); color: var(--accent); border: 1px solid rgba(79,255,176,0.2); }
-  .modal-top-actions { display: flex; align-items: center; gap: 5px; flex-shrink: 0; }
-  .close-btn { background: var(--surface2); border: 1px solid var(--border); color: var(--muted); width: 29px; height: 29px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 0.95rem; transition: all 0.15s; }
-  .close-btn:hover { background: var(--border); color: var(--text); }
-  .edit-btn { background: var(--surface2); border: 1px solid var(--border); color: var(--muted); padding: 0 11px; height: 29px; border-radius: 8px; cursor: pointer; font-family: 'DM Mono', monospace; font-size: 0.67rem; display: flex; align-items: center; gap: 4px; transition: all 0.15s; }
-  .edit-btn:hover { border-color: var(--accent); color: var(--accent); }
-  .edit-btn.active { background: rgba(79,255,176,0.1); border-color: var(--accent); color: var(--accent); }
-  .modal-body { padding: 18px 22px; display: flex; flex-direction: column; gap: 20px; }
-  .section-label { font-size: 0.61rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 9px; display: flex; align-items: center; gap: 8px; }
-  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-  .field-group { display: flex; flex-direction: column; gap: 5px; }
-  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-  label.field-label { font-size: 0.6rem; color: var(--muted); letter-spacing: 0.05em; }
-  input[type="text"], input[type="number"], select, textarea.mta {
-    width: 100%; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 8px 11px;
-    font-family: 'DM Mono', monospace; font-size: 0.77rem; color: var(--text); outline: none; transition: border-color 0.15s; appearance: none;
-  }
-  input:focus, select:focus, textarea.mta:focus { border-color: rgba(79,255,176,0.38); }
-  textarea.mta { resize: vertical; line-height: 1.6; }
-  textarea.mta.dta { min-height: 100px; }
-  select option { background: var(--surface2); }
-  .diagnosis-block { background: var(--surface2); border: 1px solid var(--border); border-radius: 10px; padding: 13px; border-left: 3px solid var(--accent2); }
-  .diagnosis-primary { font-size: 0.88rem; font-weight: 500; margin-bottom: 6px; }
-  .diagnosis-details { font-size: 0.73rem; color: var(--muted); line-height: 1.6; }
-  .task-list { display: flex; flex-direction: column; gap: 5px; }
-  .task-item { display: flex; align-items: center; gap: 8px; padding: 8px 11px; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; transition: all 0.15s; }
-  .task-item.done { opacity: 0.44; }
-  .task-checkbox { width: 16px; height: 16px; border-radius: 5px; border: 1.5px solid var(--border); cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.15s; background: transparent; }
-  .task-item.done .task-checkbox { background: var(--accent); border-color: var(--accent); }
-  .task-checkbox::after { content: ''; display: none; }
-  .task-item.done .task-checkbox::after { display: block; width: 4px; height: 8px; border: 2px solid var(--bg); border-top: none; border-left: none; transform: rotate(45deg) translateY(-1px); }
-  .task-text { font-size: 0.75rem; color: var(--text); flex: 1; line-height: 1.4; }
-  .task-item.done .task-text { text-decoration: line-through; color: var(--muted); }
-  .task-priority { font-size: 0.57rem; padding: 2px 6px; border-radius: 10px; flex-shrink: 0; }
-  .priority-high { background: rgba(255,77,109,0.14); color: var(--critical); border: 1px solid rgba(255,77,109,0.28); }
-  .priority-medium { background: rgba(255,209,102,0.14); color: var(--pending-color); border: 1px solid rgba(255,209,102,0.28); }
-  .priority-low { background: rgba(79,255,176,0.1); color: var(--accent); border: 1px solid rgba(79,255,176,0.2); }
-  .task-del-btn { background: none; border: none; color: var(--muted); cursor: pointer; font-size: 0.85rem; padding: 0 2px; border-radius: 4px; transition: all 0.15s; flex-shrink: 0; }
-  .task-del-btn:hover { color: var(--critical); }
-  .add-task-row { display: flex; gap: 6px; margin-top: 6px; flex-wrap: wrap; }
-  .add-task-row input { flex: 1; min-width: 130px; }
-  .add-task-row select { width: 96px; flex-shrink: 0; }
-  .discharge-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 9px; }
-  .discharge-toggle { display: flex; align-items: center; gap: 7px; cursor: pointer; font-size: 0.69rem; color: var(--muted); }
-  .toggle-switch { width: 33px; height: 18px; border-radius: 10px; background: var(--border); position: relative; transition: background 0.2s; cursor: pointer; flex-shrink: 0; }
-  .toggle-switch.on { background: var(--accent); }
-  .toggle-knob { position: absolute; top: 2px; left: 2px; width: 14px; height: 14px; border-radius: 50%; background: white; transition: transform 0.2s; }
-  .toggle-switch.on .toggle-knob { transform: translateX(15px); }
-  .btn-row { display: flex; gap: 7px; flex-wrap: wrap; }
-  .btn { padding: 8px 16px; border-radius: 8px; border: none; cursor: pointer; font-family: 'DM Mono', monospace; font-size: 0.72rem; font-weight: 500; transition: opacity 0.15s; display: flex; align-items: center; gap: 5px; }
-  .btn-primary { background: var(--accent); color: var(--bg); }
-  .btn-primary:hover { opacity: 0.85; }
-  .btn-danger { background: rgba(255,77,109,0.14); color: var(--critical); border: 1px solid rgba(255,77,109,0.28); }
-  .btn-danger:hover { background: rgba(255,77,109,0.24); }
-  .btn-ghost { background: var(--surface2); color: var(--text); border: 1px solid var(--border); }
-  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
-  .confirm-body { padding: 22px; display: flex; flex-direction: column; gap: 16px; }
-  .confirm-msg { font-size: 0.8rem; line-height: 1.6; color: var(--muted); }
-  .confirm-msg strong { color: var(--text); }
-  .form-body { padding: 18px 22px; display: flex; flex-direction: column; gap: 13px; }
-  .empty-state { font-size: 0.72rem; color: var(--muted); padding: 8px 0; font-style: italic; }
-  .type-row { display: flex; gap: 8px; }
-  .type-option { flex: 1; padding: 8px 10px; border-radius: 8px; border: 1.5px solid var(--border); cursor: pointer; text-align: center; font-size: 0.71rem; transition: all 0.15s; color: var(--muted); }
-  .type-option.sel-public { border-color: var(--accent); background: rgba(79,255,176,0.07); color: var(--accent); }
-  .type-option.sel-private { border-color: var(--private-color); background: rgba(192,132,252,0.07); color: var(--private-color); }
-  .scrollbar-thin::-webkit-scrollbar { width: 5px; }
-  .scrollbar-thin::-webkit-scrollbar-track { background: transparent; }
-  .scrollbar-thin::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+/* MODALS */
+.modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.72); backdrop-filter: blur(4px); z-index: 200; align-items: center; justify-content: center; padding: 20px; }
+.modal-overlay.active { display: flex; animation: fadeIn 0.15s ease; }
+@keyframes fadeIn { from{opacity:0}to{opacity:1} }
+@keyframes slideUp { from{transform:translateY(14px);opacity:0}to{transform:translateY(0);opacity:1} }
+.modal { background: var(–surface); border: 1px solid var(–border); border-radius: 16px; width: 100%; max-width: 700px; max-height: 92vh; overflow-y: auto; animation: slideUp 0.2s ease; }
+.modal.sm { max-width: 460px; }
+.modal-top { padding: 18px 22px 14px; border-bottom: 1px solid var(–border); display: flex; align-items: flex-start; justify-content: space-between; position: sticky; top: 0; background: var(–surface); z-index: 10; border-radius: 16px 16px 0 0; }
+.modal-title-row { display: flex; align-items: flex-start; gap: 10px; flex: 1; min-width: 0; }
+.modal-patient-name { font-family: ‘Fraunces’, serif; font-size: 1.35rem; font-weight: 600; letter-spacing: -0.5px; line-height: 1.1; }
+.modal-sub { font-size: 0.67rem; color: var(–muted); margin-top: 4px; }
+.private-badge { font-size: 0.63rem; padding: 3px 9px; border-radius: 12px; margin-top: 4px; white-space: nowrap; flex-shrink: 0; background: rgba(192,132,252,0.14); color: var(–private-color); border: 1px solid rgba(192,132,252,0.28); }
+.public-badge { font-size: 0.63rem; padding: 3px 9px; border-radius: 12px; margin-top: 4px; white-space: nowrap; flex-shrink: 0; background: rgba(79,255,176,0.1); color: var(–accent); border: 1px solid rgba(79,255,176,0.2); }
+.modal-top-actions { display: flex; align-items: center; gap: 5px; flex-shrink: 0; }
+.close-btn { background: var(–surface2); border: 1px solid var(–border); color: var(–muted); width: 29px; height: 29px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 0.95rem; transition: all 0.15s; }
+.close-btn:hover { background: var(–border); color: var(–text); }
+.edit-btn { background: var(–surface2); border: 1px solid var(–border); color: var(–muted); padding: 0 11px; height: 29px; border-radius: 8px; cursor: pointer; font-family: ‘DM Mono’, monospace; font-size: 0.67rem; display: flex; align-items: center; gap: 4px; transition: all 0.15s; }
+.edit-btn:hover { border-color: var(–accent); color: var(–accent); }
+.edit-btn.active { background: rgba(79,255,176,0.1); border-color: var(–accent); color: var(–accent); }
+.modal-body { padding: 18px 22px; display: flex; flex-direction: column; gap: 20px; }
+.section-label { font-size: 0.61rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(–muted); margin-bottom: 9px; display: flex; align-items: center; gap: 8px; }
+.section-label::after { content: ‘’; flex: 1; height: 1px; background: var(–border); }
+.field-group { display: flex; flex-direction: column; gap: 5px; }
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+label.field-label { font-size: 0.6rem; color: var(–muted); letter-spacing: 0.05em; }
+input[type=“text”], input[type=“number”], select, textarea.mta {
+width: 100%; background: var(–surface2); border: 1px solid var(–border); border-radius: 8px; padding: 8px 11px;
+font-family: ‘DM Mono’, monospace; font-size: 0.77rem; color: var(–text); outline: none; transition: border-color 0.15s; appearance: none;
+}
+input:focus, select:focus, textarea.mta:focus { border-color: rgba(79,255,176,0.38); }
+textarea.mta { resize: vertical; line-height: 1.6; }
+textarea.mta.dta { min-height: 100px; }
+select option { background: var(–surface2); }
+.diagnosis-block { background: var(–surface2); border: 1px solid var(–border); border-radius: 10px; padding: 13px; border-left: 3px solid var(–accent2); }
+.diagnosis-primary { font-size: 0.88rem; font-weight: 500; margin-bottom: 6px; }
+.diagnosis-details { font-size: 0.73rem; color: var(–muted); line-height: 1.6; }
+.task-list { display: flex; flex-direction: column; gap: 5px; }
+.task-item { display: flex; align-items: center; gap: 8px; padding: 8px 11px; background: var(–surface2); border: 1px solid var(–border); border-radius: 8px; transition: all 0.15s; }
+.task-item.done { opacity: 0.44; }
+.task-checkbox { width: 16px; height: 16px; border-radius: 5px; border: 1.5px solid var(–border); cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.15s; background: transparent; }
+.task-item.done .task-checkbox { background: var(–accent); border-color: var(–accent); }
+.task-checkbox::after { content: ‘’; display: none; }
+.task-item.done .task-checkbox::after { display: block; width: 4px; height: 8px; border: 2px solid var(–bg); border-top: none; border-left: none; transform: rotate(45deg) translateY(-1px); }
+.task-text { font-size: 0.75rem; color: var(–text); flex: 1; line-height: 1.4; }
+.task-item.done .task-text { text-decoration: line-through; color: var(–muted); }
+.task-priority { font-size: 0.57rem; padding: 2px 6px; border-radius: 10px; flex-shrink: 0; }
+.priority-high { background: rgba(255,77,109,0.14); color: var(–critical); border: 1px solid rgba(255,77,109,0.28); }
+.priority-medium { background: rgba(255,209,102,0.14); color: var(–pending-color); border: 1px solid rgba(255,209,102,0.28); }
+.priority-low { background: rgba(79,255,176,0.1); color: var(–accent); border: 1px solid rgba(79,255,176,0.2); }
+.task-del-btn { background: none; border: none; color: var(–muted); cursor: pointer; font-size: 0.85rem; padding: 0 2px; border-radius: 4px; transition: all 0.15s; flex-shrink: 0; }
+.task-del-btn:hover { color: var(–critical); }
+.add-task-row { display: flex; gap: 6px; margin-top: 6px; flex-wrap: wrap; }
+.add-task-row input { flex: 1; min-width: 130px; }
+.add-task-row select { width: 96px; flex-shrink: 0; }
+.discharge-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 9px; }
+.discharge-toggle { display: flex; align-items: center; gap: 7px; cursor: pointer; font-size: 0.69rem; color: var(–muted); }
+.toggle-switch { width: 33px; height: 18px; border-radius: 10px; background: var(–border); position: relative; transition: background 0.2s; cursor: pointer; flex-shrink: 0; }
+.toggle-switch.on { background: var(–accent); }
+.toggle-knob { position: absolute; top: 2px; left: 2px; width: 14px; height: 14px; border-radius: 50%; background: white; transition: transform 0.2s; }
+.toggle-switch.on .toggle-knob { transform: translateX(15px); }
+.btn-row { display: flex; gap: 7px; flex-wrap: wrap; }
+.btn { padding: 8px 16px; border-radius: 8px; border: none; cursor: pointer; font-family: ‘DM Mono’, monospace; font-size: 0.72rem; font-weight: 500; transition: opacity 0.15s; display: flex; align-items: center; gap: 5px; }
+.btn-primary { background: var(–accent); color: var(–bg); }
+.btn-primary:hover { opacity: 0.85; }
+.btn-danger { background: rgba(255,77,109,0.14); color: var(–critical); border: 1px solid rgba(255,77,109,0.28); }
+.btn-danger:hover { background: rgba(255,77,109,0.24); }
+.btn-ghost { background: var(–surface2); color: var(–text); border: 1px solid var(–border); }
+.btn-ghost:hover { border-color: var(–accent); color: var(–accent); }
+.confirm-body { padding: 22px; display: flex; flex-direction: column; gap: 16px; }
+.confirm-msg { font-size: 0.8rem; line-height: 1.6; color: var(–muted); }
+.confirm-msg strong { color: var(–text); }
+.form-body { padding: 18px 22px; display: flex; flex-direction: column; gap: 13px; }
+.empty-state { font-size: 0.72rem; color: var(–muted); padding: 8px 0; font-style: italic; }
+.type-row { display: flex; gap: 8px; }
+.type-option { flex: 1; padding: 8px 10px; border-radius: 8px; border: 1.5px solid var(–border); cursor: pointer; text-align: center; font-size: 0.71rem; transition: all 0.15s; color: var(–muted); }
+.type-option.sel-public { border-color: var(–accent); background: rgba(79,255,176,0.07); color: var(–accent); }
+.type-option.sel-private { border-color: var(–private-color); background: rgba(192,132,252,0.07); color: var(–private-color); }
+.scrollbar-thin::-webkit-scrollbar { width: 5px; }
+.scrollbar-thin::-webkit-scrollbar-track { background: transparent; }
+.scrollbar-thin::-webkit-scrollbar-thumb { background: var(–border); border-radius: 3px; }
 </style>
+
 </head>
 <body>
 
@@ -180,6 +182,7 @@
 </main>
 
 <!-- PATIENT MODAL -->
+
 <div class="modal-overlay" id="pat-overlay" onclick="overlayClick(event,'pat-overlay')">
   <div class="modal scrollbar-thin" id="pat-modal">
     <div class="modal-top">
@@ -200,6 +203,7 @@
 </div>
 
 <!-- ADD/RENAME WARD MODAL -->
+
 <div class="modal-overlay" id="ward-overlay" onclick="overlayClick(event,'ward-overlay')">
   <div class="modal sm scrollbar-thin">
     <div class="modal-top">
@@ -220,6 +224,7 @@
 </div>
 
 <!-- ADD PATIENT MODAL -->
+
 <div class="modal-overlay" id="newpat-overlay" onclick="overlayClick(event,'newpat-overlay')">
   <div class="modal sm scrollbar-thin">
     <div class="modal-top">
@@ -257,6 +262,7 @@
 </div>
 
 <!-- CONFIRM DELETE -->
+
 <div class="modal-overlay" id="confirm-overlay" onclick="overlayClick(event,'confirm-overlay')">
   <div class="modal sm scrollbar-thin">
     <div class="modal-top">
@@ -272,6 +278,93 @@
     </div>
   </div>
 </div>
+
+<!-- Firebase SDK -->
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+  import { getFirestore, doc, setDoc, getDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyA_DiJ2pADt_79xj3Edd3ZgRG9aWXNx3Fc",
+    authDomain: "wardtracker-70ac8.firebaseapp.com",
+    projectId: "wardtracker-70ac8",
+    storageBucket: "wardtracker-70ac8.firebasestorage.app",
+    messagingSenderId: "1086383518990",
+    appId: "1:1086383518990:web:9350daa2ca9c6a35a1535f",
+    measurementId: "G-FD5P3QNM6E"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  let currentUser = null;
+
+  // LOGIN SCREEN
+  document.body.innerHTML = `
+    <div style="display:flex;justify-content:center;align-items:center;height:100vh;background:#0e1117;color:white;font-family:monospace;">
+      <div>
+        <h2>WardTracker Login</h2>
+        <input id="email" placeholder="Email" style="display:block;margin:10px 0;padding:8px;width:250px;">
+        <input id="password" type="password" placeholder="Password" style="display:block;margin:10px 0;padding:8px;width:250px;">
+        <button onclick="login()" style="padding:8px 15px;">Login</button>
+        <button onclick="register()" style="padding:8px 15px;">Register</button>
+      </div>
+    </div>
+  `;
+
+  window.login = async () => {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    await signInWithEmailAndPassword(auth, email, password);
+  };
+
+  window.register = async () => {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    await createUserWithEmailAndPassword(auth, email, password);
+  };
+
+  onAuthStateChanged(auth, async (user) => {
+    if (user) {
+      currentUser = user;
+      loadData();
+    }
+  });
+
+  async function loadData() {
+    const docRef = doc(db, "users", currentUser.uid);
+    const snap = await getDoc(docRef);
+
+    if (snap.exists()) {
+      wards = snap.data().wards;
+    } else {
+      await setDoc(docRef, { wards });
+    }
+
+    renderWards();
+
+    onSnapshot(docRef, (snapshot) => {
+      wards = snapshot.data().wards;
+      renderWards();
+    });
+  }
+
+  async function saveData() {
+    const docRef = doc(db, "users", currentUser.uid);
+    await setDoc(docRef, { wards });
+  }
+
+  // Override existing render trigger points
+  const originalRender = renderWards;
+  renderWards = function() {
+    originalRender();
+    if (currentUser) saveData();
+  };
+
+</script>
 
 <script>
 // ── DATA ──
@@ -455,281 +548,226 @@ function viewBody(p){
         </div>
       </div>
       <textarea class="mta dta" id="dta" ${p.dischargeReady?'':'disabled'} placeholder="Type discharge summary here...">${esc(p.dischargeSummary)}</textarea>
-      <div class="btn-row" style="margin-top:8px;">
-        <button class="btn btn-primary" onclick="saveDischarge()">Save Summary</button>
-      </div>
-    </div>
-    <div>
-      <div class="section-label">Danger Zone</div>
-      <button class="btn btn-danger" onclick="reqDeletePat('${p.id}')">Remove Patient</button>
-    </div>`;
+
+```
+  <div class="btn-row" style="margin-top:8px;">
+    <button class="btn btn-primary" onclick="saveDischarge()">Save Summary</button>
+  </div>
+</div>
+<div>
+  <div class="section-label">Danger Zone</div>
+  <button class="btn btn-danger" onclick="reqDeletePat('${p.id}')">Remove Patient</button>
+</div>`;
+```
+
 }
 
 function editBody(p){
-  const go=(sel)=>['high','medium','low'].map(v=>`<option value="${v}" ${sel===v?'selected':''}>${v}</option>`).join('');
-  const wOpts=wards.map(w=>`<option value="${w.id}" ${findPat(currentPid).w.id===w.id?'selected':''}>${esc(w.name)}</option>`).join('');
-  return `
-    <div>
-      <div class="section-label">Patient Details</div>
-      <div style="display:flex;flex-direction:column;gap:9px;">
-        <div class="field-group"><label class="field-label">Full Name</label><input type="text" id="e-name" value="${esc(p.name)}"></div>
-        <div class="field-row">
-          <div class="field-group"><label class="field-label">Bed</label><input type="text" id="e-bed" value="${esc(p.bed)}"></div>
-          <div class="field-group"><label class="field-label">Age</label><input type="number" id="e-age" value="${p.age}" min="0" max="130"></div>
-        </div>
-        <div class="field-row">
-          <div class="field-group"><label class="field-label">Gender</label>
-            <select id="e-gender">
-              <option value="M" ${p.gender==='M'?'selected':''}>Male</option>
-              <option value="F" ${p.gender==='F'?'selected':''}>Female</option>
-              <option value="X" ${p.gender==='X'?'selected':''}>Non-binary</option>
-            </select>
-          </div>
-          <div class="field-group"><label class="field-label">Ward</label><select id="e-ward">${wOpts}</select></div>
-        </div>
-        <div class="field-group"><label class="field-label">Patient Type</label>
-          <div class="type-row">
-            <div class="type-option ${editType!=='private'?'sel-public':''}" id="et-pub" onclick="etSetType('public')">Public</div>
-            <div class="type-option ${editType==='private'?'sel-private':''}" id="et-priv" onclick="etSetType('private')">Private</div>
-          </div>
-        </div>
-        <div class="field-row">
-          <div class="field-group"><label class="field-label">Critical</label>
-            <select id="e-crit"><option value="false" ${!p.critical?'selected':''}>No</option><option value="true" ${p.critical?'selected':''}>Yes</option></select>
-          </div>
-          <div class="field-group"><label class="field-label">Discharge Ready</label>
-            <select id="e-dr"><option value="false" ${!p.dischargeReady?'selected':''}>No</option><option value="true" ${p.dischargeReady?'selected':''}>Yes</option></select>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div>
-      <div class="section-label">Diagnosis</div>
-      <div style="display:flex;flex-direction:column;gap:8px;">
-        <div class="field-group"><label class="field-label">Primary Diagnosis</label><input type="text" id="e-dp" value="${esc(p.diagnosis.primary)}"></div>
-        <div class="field-group"><label class="field-label">Clinical Notes</label><textarea class="mta" id="e-dd" rows="4">${esc(p.diagnosis.details)}</textarea></div>
-      </div>
-    </div>
-    <div>
-      <div class="section-label">Pending Work</div>
-      <div class="task-list" id="etl">
-        ${p.tasks.map(t=>`
-          <div class="task-item" id="et-${t.id}">
-            <div class="task-checkbox" style="cursor:default;opacity:0.4;"></div>
-            <input type="text" value="${esc(t.text)}" style="flex:1;background:transparent;border:none;padding:0;font-size:0.75rem;color:var(--text);outline:none;" onchange="etText('${t.id}',this.value)">
-            <select style="width:90px;padding:3px 7px;font-size:0.67rem;" onchange="etPrio('${t.id}',this.value)">${go(t.priority)}</select>
-            <button class="task-del-btn" onclick="delTask('${t.id}')">✕</button>
-          </div>`).join('')}
-      </div>
-      <div class="add-task-row">
-        <input type="text" id="nt-text" placeholder="New task...">
-        <select id="nt-prio"><option value="high">High</option><option value="medium" selected>Medium</option><option value="low">Low</option></select>
-        <button class="btn btn-ghost" style="padding:7px 12px;font-size:0.71rem;" onclick="addTask()">＋</button>
-      </div>
-    </div>
-    <div>
-      <div class="section-label">Discharge Summary</div>
-      <textarea class="mta dta" id="e-ds" placeholder="Type discharge summary here...">${esc(p.dischargeSummary)}</textarea>
-    </div>`;
+const go=(sel)=>[‘high’,‘medium’,‘low’].map(v=>`<option value="${v}" ${sel===v?'selected':''}>${v}</option>`).join(’’);
+const wOpts=wards.map(w=>`<option value="${w.id}" ${findPat(currentPid).w.id===w.id?'selected':''}>${esc(w.name)}</option>`).join(’’);
+return ` <div> <div class="section-label">Patient Details</div> <div style="display:flex;flex-direction:column;gap:9px;"> <div class="field-group"><label class="field-label">Full Name</label><input type="text" id="e-name" value="${esc(p.name)}"></div> <div class="field-row"> <div class="field-group"><label class="field-label">Bed</label><input type="text" id="e-bed" value="${esc(p.bed)}"></div> <div class="field-group"><label class="field-label">Age</label><input type="number" id="e-age" value="${p.age}" min="0" max="130"></div> </div> <div class="field-row"> <div class="field-group"><label class="field-label">Gender</label> <select id="e-gender"> <option value="M" ${p.gender==='M'?'selected':''}>Male</option> <option value="F" ${p.gender==='F'?'selected':''}>Female</option> <option value="X" ${p.gender==='X'?'selected':''}>Non-binary</option> </select> </div> <div class="field-group"><label class="field-label">Ward</label><select id="e-ward">${wOpts}</select></div> </div> <div class="field-group"><label class="field-label">Patient Type</label> <div class="type-row"> <div class="type-option ${editType!=='private'?'sel-public':''}" id="et-pub" onclick="etSetType('public')">Public</div> <div class="type-option ${editType==='private'?'sel-private':''}" id="et-priv" onclick="etSetType('private')">Private</div> </div> </div> <div class="field-row"> <div class="field-group"><label class="field-label">Critical</label> <select id="e-crit"><option value="false" ${!p.critical?'selected':''}>No</option><option value="true" ${p.critical?'selected':''}>Yes</option></select> </div> <div class="field-group"><label class="field-label">Discharge Ready</label> <select id="e-dr"><option value="false" ${!p.dischargeReady?'selected':''}>No</option><option value="true" ${p.dischargeReady?'selected':''}>Yes</option></select> </div> </div> </div> </div> <div> <div class="section-label">Diagnosis</div> <div style="display:flex;flex-direction:column;gap:8px;"> <div class="field-group"><label class="field-label">Primary Diagnosis</label><input type="text" id="e-dp" value="${esc(p.diagnosis.primary)}"></div> <div class="field-group"><label class="field-label">Clinical Notes</label><textarea class="mta" id="e-dd" rows="4">${esc(p.diagnosis.details)}</textarea></div> </div> </div> <div> <div class="section-label">Pending Work</div> <div class="task-list" id="etl"> ${p.tasks.map(t=>`
+<div class="task-item" id="et-${t.id}">
+<div class="task-checkbox" style="cursor:default;opacity:0.4;"></div>
+<input type="text" value="${esc(t.text)}" style="flex:1;background:transparent;border:none;padding:0;font-size:0.75rem;color:var(--text);outline:none;" onchange="etText('${t.id}',this.value)">
+<select style="width:90px;padding:3px 7px;font-size:0.67rem;" onchange="etPrio('${t.id}',this.value)">${go(t.priority)}</select>
+<button class="task-del-btn" onclick="delTask('${t.id}')">✕</button>
+</div>`).join('')} </div> <div class="add-task-row"> <input type="text" id="nt-text" placeholder="New task..."> <select id="nt-prio"><option value="high">High</option><option value="medium" selected>Medium</option><option value="low">Low</option></select> <button class="btn btn-ghost" style="padding:7px 12px;font-size:0.71rem;" onclick="addTask()">＋</button> </div> </div> <div> <div class="section-label">Discharge Summary</div> <textarea class="mta dta" id="e-ds" placeholder="Type discharge summary here...">${esc(p.dischargeSummary)}</textarea> </div>`;
 }
 
 function etSetType(t){
-  editType=t;
-  document.getElementById('et-pub').className='type-option '+(t==='public'?'sel-public':'');
-  document.getElementById('et-priv').className='type-option '+(t==='private'?'sel-private':'');
+editType=t;
+document.getElementById(‘et-pub’).className=‘type-option ‘+(t===‘public’?‘sel-public’:’’);
+document.getElementById(‘et-priv’).className=‘type-option ‘+(t===‘private’?‘sel-private’:’’);
 }
 
 function etText(tid,v){const {p}=findPat(currentPid);const t=p.tasks.find(t=>t.id===tid);if(t)t.text=v;}
 function etPrio(tid,v){const {p}=findPat(currentPid);const t=p.tasks.find(t=>t.id===tid);if(t)t.priority=v;}
 
 function delTask(tid){
-  const {p}=findPat(currentPid);
-  p.tasks=p.tasks.filter(t=>t.id!==tid);
-  document.getElementById('et-'+tid)?.remove();
-  renderWards();
+const {p}=findPat(currentPid);
+p.tasks=p.tasks.filter(t=>t.id!==tid);
+document.getElementById(‘et-’+tid)?.remove();
+renderWards();
 }
 
 function addTask(){
-  const text=document.getElementById('nt-text').value.trim();
-  if(!text)return;
-  const prio=document.getElementById('nt-prio').value;
-  const {p}=findPat(currentPid);
-  const nt={id:uid(),text,priority:prio,done:false};
-  p.tasks.push(nt);
-  document.getElementById('nt-text').value='';
-  const go=(sel)=>['high','medium','low'].map(v=>`<option value="${v}" ${sel===v?'selected':''}>${v}</option>`).join('');
-  const div=document.createElement('div');
-  div.className='task-item'; div.id='et-'+nt.id;
-  div.innerHTML=`
-    <div class="task-checkbox" style="cursor:default;opacity:0.4;"></div>
-    <input type="text" value="${esc(text)}" style="flex:1;background:transparent;border:none;padding:0;font-size:0.75rem;color:var(--text);outline:none;" onchange="etText('${nt.id}',this.value)">
-    <select style="width:90px;padding:3px 7px;font-size:0.67rem;" onchange="etPrio('${nt.id}',this.value)">${go(prio)}</select>
-    <button class="task-del-btn" onclick="delTask('${nt.id}')">✕</button>`;
-  document.getElementById('etl').appendChild(div);
-  renderWards();
+const text=document.getElementById(‘nt-text’).value.trim();
+if(!text)return;
+const prio=document.getElementById(‘nt-prio’).value;
+const {p}=findPat(currentPid);
+const nt={id:uid(),text,priority:prio,done:false};
+p.tasks.push(nt);
+document.getElementById(‘nt-text’).value=’’;
+const go=(sel)=>[‘high’,‘medium’,‘low’].map(v=>`<option value="${v}" ${sel===v?'selected':''}>${v}</option>`).join(’’);
+const div=document.createElement(‘div’);
+div.className=‘task-item’; div.id=‘et-’+nt.id;
+div.innerHTML=` <div class="task-checkbox" style="cursor:default;opacity:0.4;"></div> <input type="text" value="${esc(text)}" style="flex:1;background:transparent;border:none;padding:0;font-size:0.75rem;color:var(--text);outline:none;" onchange="etText('${nt.id}',this.value)"> <select style="width:90px;padding:3px 7px;font-size:0.67rem;" onchange="etPrio('${nt.id}',this.value)">${go(prio)}</select> <button class="task-del-btn" onclick="delTask('${nt.id}')">✕</button>`;
+document.getElementById(‘etl’).appendChild(div);
+renderWards();
 }
 
 function saveEdits(){
-  const {p,w:oldW}=findPat(currentPid);
-  const v=id=>document.getElementById(id);
-  p.name=v('e-name').value.trim()||p.name;
-  p.bed=v('e-bed').value.trim()||p.bed;
-  p.age=parseInt(v('e-age').value)||p.age;
-  p.gender=v('e-gender').value;
-  p.critical=v('e-crit').value==='true';
-  p.dischargeReady=v('e-dr').value==='true';
-  p.diagnosis.primary=v('e-dp').value.trim()||p.diagnosis.primary;
-  p.diagnosis.details=v('e-dd').value;
-  p.dischargeSummary=v('e-ds').value;
-  if(editType!==null) p.isPrivate=editType==='private';
-  const nwid=v('e-ward').value;
-  if(nwid!==oldW.id){
-    oldW.patients=oldW.patients.filter(pt=>pt.id!==p.id);
-    const nw=wards.find(w=>w.id===nwid);
-    if(nw) nw.patients.push(p);
-  }
-  editMode=false; editType=null;
-  renderWards(); renderPatModal();
+const {p,w:oldW}=findPat(currentPid);
+const v=id=>document.getElementById(id);
+p.name=v(‘e-name’).value.trim()||p.name;
+p.bed=v(‘e-bed’).value.trim()||p.bed;
+p.age=parseInt(v(‘e-age’).value)||p.age;
+p.gender=v(‘e-gender’).value;
+p.critical=v(‘e-crit’).value===‘true’;
+p.dischargeReady=v(‘e-dr’).value===‘true’;
+p.diagnosis.primary=v(‘e-dp’).value.trim()||p.diagnosis.primary;
+p.diagnosis.details=v(‘e-dd’).value;
+p.dischargeSummary=v(‘e-ds’).value;
+if(editType!==null) p.isPrivate=editType===‘private’;
+const nwid=v(‘e-ward’).value;
+if(nwid!==oldW.id){
+oldW.patients=oldW.patients.filter(pt=>pt.id!==p.id);
+const nw=wards.find(w=>w.id===nwid);
+if(nw) nw.patients.push(p);
+}
+editMode=false; editType=null;
+renderWards(); renderPatModal();
 }
 
 // view mode
 function toggleTask(tid){
-  const {p}=findPat(currentPid);
-  const t=p.tasks.find(t=>t.id===tid);
-  if(!t)return;
-  t.done=!t.done;
-  document.getElementById('vt-'+tid)?.classList.toggle('done',t.done);
-  renderWards();
+const {p}=findPat(currentPid);
+const t=p.tasks.find(t=>t.id===tid);
+if(!t)return;
+t.done=!t.done;
+document.getElementById(‘vt-’+tid)?.classList.toggle(‘done’,t.done);
+renderWards();
 }
 
 function toggleDischarge(){
-  const {p}=findPat(currentPid);
-  p.dischargeReady=!p.dischargeReady;
-  document.getElementById('dtoggle').classList.toggle('on',p.dischargeReady);
-  document.getElementById('dlabel').textContent=p.dischargeReady?'Ready':'Not ready';
-  document.getElementById('dta').disabled=!p.dischargeReady;
-  renderWards();
+const {p}=findPat(currentPid);
+p.dischargeReady=!p.dischargeReady;
+document.getElementById(‘dtoggle’).classList.toggle(‘on’,p.dischargeReady);
+document.getElementById(‘dlabel’).textContent=p.dischargeReady?‘Ready’:‘Not ready’;
+document.getElementById(‘dta’).disabled=!p.dischargeReady;
+renderWards();
 }
 
 function saveDischarge(){
-  const {p}=findPat(currentPid);
-  p.dischargeSummary=document.getElementById('dta').value;
-  const btn=document.querySelector('#m-body .btn-primary');
-  const orig=btn.textContent;
-  btn.textContent='Saved ✓';
-  setTimeout(()=>{btn.textContent=orig;},1500);
+const {p}=findPat(currentPid);
+p.dischargeSummary=document.getElementById(‘dta’).value;
+const btn=document.querySelector(’#m-body .btn-primary’);
+const orig=btn.textContent;
+btn.textContent=‘Saved ✓’;
+setTimeout(()=>{btn.textContent=orig;},1500);
 }
 
 // ── WARD MODAL ──
 function openAddWard(){
-  wardModalMode='add'; renameWardId=null;
-  document.getElementById('ward-modal-title').textContent='New Ward';
-  document.getElementById('ward-name-input').value='';
-  const cb=document.getElementById('ward-confirm-btn');
-  cb.textContent='Add Ward'; cb.onclick=doAddWard;
-  document.getElementById('ward-overlay').classList.add('active');
+wardModalMode=‘add’; renameWardId=null;
+document.getElementById(‘ward-modal-title’).textContent=‘New Ward’;
+document.getElementById(‘ward-name-input’).value=’’;
+const cb=document.getElementById(‘ward-confirm-btn’);
+cb.textContent=‘Add Ward’; cb.onclick=doAddWard;
+document.getElementById(‘ward-overlay’).classList.add(‘active’);
 }
 
 function openRenameWard(wid){
-  wardModalMode='rename'; renameWardId=wid;
-  const ward=wards.find(w=>w.id===wid);
-  document.getElementById('ward-modal-title').textContent='Rename Ward';
-  document.getElementById('ward-name-input').value=ward.name;
-  const cb=document.getElementById('ward-confirm-btn');
-  cb.textContent='Save'; cb.onclick=doRenameWard;
-  document.getElementById('ward-overlay').classList.add('active');
+wardModalMode=‘rename’; renameWardId=wid;
+const ward=wards.find(w=>w.id===wid);
+document.getElementById(‘ward-modal-title’).textContent=‘Rename Ward’;
+document.getElementById(‘ward-name-input’).value=ward.name;
+const cb=document.getElementById(‘ward-confirm-btn’);
+cb.textContent=‘Save’; cb.onclick=doRenameWard;
+document.getElementById(‘ward-overlay’).classList.add(‘active’);
 }
 
 function doAddWard(){
-  const name=document.getElementById('ward-name-input').value.trim();
-  if(!name)return;
-  wards.push({id:uid(),name,patients:[]});
-  renderWards(); closeModal('ward-overlay');
+const name=document.getElementById(‘ward-name-input’).value.trim();
+if(!name)return;
+wards.push({id:uid(),name,patients:[]});
+renderWards(); closeModal(‘ward-overlay’);
 }
 
 function doRenameWard(){
-  const name=document.getElementById('ward-name-input').value.trim();
-  if(!name)return;
-  const w=wards.find(w=>w.id===renameWardId);
-  if(w) w.name=name;
-  renderWards(); closeModal('ward-overlay');
+const name=document.getElementById(‘ward-name-input’).value.trim();
+if(!name)return;
+const w=wards.find(w=>w.id===renameWardId);
+if(w) w.name=name;
+renderWards(); closeModal(‘ward-overlay’);
 }
 
 function reqDeleteWard(wid){
-  const w=wards.find(x=>x.id===wid);
-  document.getElementById('confirm-msg').innerHTML=`Delete ward <strong>${esc(w.name)}</strong> and all <strong>${w.patients.length}</strong> patient(s)?`;
-  document.getElementById('confirm-yes').onclick=()=>{
-    wards=wards.filter(x=>x.id!==wid);
-    renderWards(); closeModal('confirm-overlay');
-  };
-  document.getElementById('confirm-overlay').classList.add('active');
+const w=wards.find(x=>x.id===wid);
+document.getElementById(‘confirm-msg’).innerHTML=`Delete ward <strong>${esc(w.name)}</strong> and all <strong>${w.patients.length}</strong> patient(s)?`;
+document.getElementById(‘confirm-yes’).onclick=()=>{
+wards=wards.filter(x=>x.id!==wid);
+renderWards(); closeModal(‘confirm-overlay’);
+};
+document.getElementById(‘confirm-overlay’).classList.add(‘active’);
 }
 
 // ── ADD PATIENT ──
 function openAddPatient(wid){
-  addPatientWardId=wid; npType='public';
-  const w=wards.find(x=>x.id===wid);
-  document.getElementById('newpat-ward-label').textContent=w.name;
-  ['np-name','np-bed','np-diag','np-notes'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
-  document.getElementById('np-age').value='';
-  document.getElementById('np-gender').value='M';
-  npSetType('public');
-  document.getElementById('newpat-overlay').classList.add('active');
+addPatientWardId=wid; npType=‘public’;
+const w=wards.find(x=>x.id===wid);
+document.getElementById(‘newpat-ward-label’).textContent=w.name;
+[‘np-name’,‘np-bed’,‘np-diag’,‘np-notes’].forEach(id=>{const el=document.getElementById(id);if(el)el.value=’’;});
+document.getElementById(‘np-age’).value=’’;
+document.getElementById(‘np-gender’).value=‘M’;
+npSetType(‘public’);
+document.getElementById(‘newpat-overlay’).classList.add(‘active’);
 }
 
 function npSetType(t){
-  npType=t;
-  document.getElementById('np-pub').className='type-option '+(t==='public'?'sel-public':'');
-  document.getElementById('np-priv').className='type-option '+(t==='private'?'sel-private':'');
+npType=t;
+document.getElementById(‘np-pub’).className=‘type-option ‘+(t===‘public’?‘sel-public’:’’);
+document.getElementById(‘np-priv’).className=‘type-option ‘+(t===‘private’?‘sel-private’:’’);
 }
 
 function confirmAddPatient(){
-  const name=document.getElementById('np-name').value.trim();
-  if(!name){alert('Name required.');return;}
-  const colors=['#ff6b6b','#4fffb0','#ffd166','#74b9ff','#a29bfe','#fd79a8','#55efc4','#fdcb6e'];
-  const np={
-    id:uid(), name,
-    bed:document.getElementById('np-bed').value.trim()||'TBC',
-    age:parseInt(document.getElementById('np-age').value)||0,
-    gender:document.getElementById('np-gender').value,
-    color:colors[Math.floor(Math.random()*colors.length)],
-    isPrivate:npType==='private', critical:false,
-    diagnosis:{primary:document.getElementById('np-diag').value.trim()||'Not specified',details:document.getElementById('np-notes').value.trim()},
-    tasks:[], dischargeReady:false, dischargeSummary:''
-  };
-  const w=wards.find(x=>x.id===addPatientWardId);
-  if(w) w.patients.push(np);
-  renderWards(); closeModal('newpat-overlay');
+const name=document.getElementById(‘np-name’).value.trim();
+if(!name){alert(‘Name required.’);return;}
+const colors=[’#ff6b6b’,’#4fffb0’,’#ffd166’,’#74b9ff’,’#a29bfe’,’#fd79a8’,’#55efc4’,’#fdcb6e’];
+const np={
+id:uid(), name,
+bed:document.getElementById(‘np-bed’).value.trim()||‘TBC’,
+age:parseInt(document.getElementById(‘np-age’).value)||0,
+gender:document.getElementById(‘np-gender’).value,
+color:colors[Math.floor(Math.random()*colors.length)],
+isPrivate:npType===‘private’, critical:false,
+diagnosis:{primary:document.getElementById(‘np-diag’).value.trim()||‘Not specified’,details:document.getElementById(‘np-notes’).value.trim()},
+tasks:[], dischargeReady:false, dischargeSummary:’’
+};
+const w=wards.find(x=>x.id===addPatientWardId);
+if(w) w.patients.push(np);
+renderWards(); closeModal(‘newpat-overlay’);
 }
 
 function reqDeletePat(pid){
-  const {p}=findPat(pid);
-  document.getElementById('confirm-msg').innerHTML=`Remove <strong>${esc(p.name)}</strong> from the ward list?`;
-  document.getElementById('confirm-yes').onclick=()=>{
-    for(const w of wards){const i=w.patients.findIndex(x=>x.id===pid);if(i!==-1){w.patients.splice(i,1);break;}}
-    renderWards(); closeModal('confirm-overlay'); closeModal('pat-overlay');
-  };
-  document.getElementById('confirm-overlay').classList.add('active');
+const {p}=findPat(pid);
+document.getElementById(‘confirm-msg’).innerHTML=`Remove <strong>${esc(p.name)}</strong> from the ward list?`;
+document.getElementById(‘confirm-yes’).onclick=()=>{
+for(const w of wards){const i=w.patients.findIndex(x=>x.id===pid);if(i!==-1){w.patients.splice(i,1);break;}}
+renderWards(); closeModal(‘confirm-overlay’); closeModal(‘pat-overlay’);
+};
+document.getElementById(‘confirm-overlay’).classList.add(‘active’);
 }
 
 // ── MODAL UTILS ──
 function closeModal(id){
-  document.getElementById(id).classList.remove('active');
-  if(id==='pat-overlay'){currentPid=null;editMode=false;editType=null;}
+document.getElementById(id).classList.remove(‘active’);
+if(id===‘pat-overlay’){currentPid=null;editMode=false;editType=null;}
 }
 function overlayClick(e,id){if(e.target===document.getElementById(id))closeModal(id);}
-document.addEventListener('keydown',e=>{
-  if(e.key==='Escape'){['confirm-overlay','newpat-overlay','ward-overlay','pat-overlay'].forEach(id=>closeModal(id));}
+document.addEventListener(‘keydown’,e=>{
+if(e.key===‘Escape’){[‘confirm-overlay’,‘newpat-overlay’,‘ward-overlay’,‘pat-overlay’].forEach(id=>closeModal(id));}
 });
 
 // ── CLOCK ──
 function tick(){
-  const now=new Date();
-  document.getElementById('current-time').textContent=now.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+const now=new Date();
+document.getElementById(‘current-time’).textContent=now.toLocaleTimeString(‘en-GB’,{hour:‘2-digit’,minute:‘2-digit’,second:‘2-digit’});
 }
 tick(); setInterval(tick,1000);
 
 renderWards();
 </script>
+
 </body>
 </html>
